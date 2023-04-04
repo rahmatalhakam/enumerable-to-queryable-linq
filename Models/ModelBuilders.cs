@@ -8,6 +8,7 @@ public class MainDocumentBuilder : IEntityTypeConfiguration<MainDocument>
     public void Configure(EntityTypeBuilder<MainDocument> builder)
     {
         builder.Property(m => m.DocumentNumber).HasMaxLength(6);
+        builder.Property(c => c.DocumentStatus).HasConversion<string>().HasMaxLength(10);
         builder.Property(m => m.Description).HasMaxLength(50);
     }
 }
@@ -18,6 +19,7 @@ public class TransactionDocumentABuilder : IEntityTypeConfiguration<TransactionD
     {
         builder.Property(m => m.DocumentNumber).HasMaxLength(6);
         builder.Property(m => m.Details).HasMaxLength(20);
+        builder.HasOne(x => x.MainDocument).WithOne(x => x.TransactionDocumentA).OnDelete(DeleteBehavior.Cascade);
     }
 }
 
@@ -27,5 +29,6 @@ public class TransactionDocumentBBuilder : IEntityTypeConfiguration<TransactionD
     {
         builder.Property(m => m.DocumentNumber).HasMaxLength(6);
         builder.Property(m => m.Details).HasMaxLength(30);
+        builder.HasOne(x => x.MainDocument).WithOne(x => x.TransactionDocumentB).OnDelete(DeleteBehavior.Cascade);
     }
 }
