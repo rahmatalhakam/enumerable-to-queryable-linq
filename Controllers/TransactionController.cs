@@ -257,9 +257,9 @@ public class TransactionController : ControllerBase
                 MainDocumentNumber = md.DocumentNumber,
                 MainDocumentDate = md.DocumentDate,
                 MainDescription = md.Description,
-                DocumentNumberA = Convert.ToString(ta.DocumentNumber),
+                DocumentNumberA = Convert.ToString(ta.DocumentNumber), //solve the eror of different store types
                 DocumentDateA = ta.DocumentDate.ToString(),
-                DetailsA = Convert.ToString(ta.Details),
+                DetailsA = Convert.ToString(ta.Details), //solve the eror of different store types
                 DocumentNumberB = "",
                 DocumentDateB = "",
                 DetailsB = ""
@@ -279,9 +279,9 @@ public class TransactionController : ControllerBase
                 DocumentNumberA = "",
                 DocumentDateA = "",
                 DetailsA = "",
-                DocumentNumberB = Convert.ToString(tb.DocumentNumber),
+                DocumentNumberB = Convert.ToString(tb.DocumentNumber), //solve the eror of different store types
                 DocumentDateB = tb.DocumentDate.ToString(),
-                DetailsB = Convert.ToString(tb.Details),
+                DetailsB = Convert.ToString(tb.Details), //solve the eror of different store types
             }
         ).AsQueryable();
 
@@ -290,6 +290,7 @@ public class TransactionController : ControllerBase
             .Union(subQueryTransactionB)
             .Select(x => new TransactionReportDto
             {
+                //rewrite all interpolated string after set operation (concat, union, intersect)
                 MainDocumentStatus = x.MainDocumentStatus.ToString(),
                 MainDocumentNumber = x.MainDocumentNumber,
                 MainDocumentDate = x.MainDocumentDate.ToString("dd/MM/yyyy"),
@@ -301,7 +302,7 @@ public class TransactionController : ControllerBase
                 DocumentDateB = x.DocumentDateB,
                 DetailsB = x.DetailsB,
             })
-            .ToList()
+            .ToList() //add ToList() method call before the 'Groupby' or 'Distinct' 
             .GroupBy(x => x.MainDocumentStatus)
             .Select(x => new TransactionReportGroupDto
             {
