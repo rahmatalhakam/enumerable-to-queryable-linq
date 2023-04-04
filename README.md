@@ -29,7 +29,7 @@ select new
 You should change `varName` to `Convert.ToString(varName)` on property that has different Max Length. Don't use `varName.ToString()` method. Why? Because `Convert.ToString(varName)` will be converted to `CONVERT(NVarChar(MAX),table_name.column_name)` on SQL Server and `table_name.column_name::text` on PostgreSQL.
 
 Code Example:
-https://github.com/rahmatalhakam/enumerable-to-queryable-linq/blob/a08c4fb757fb1104d2a62a87fcfc951d199dd836/Controllers/TransactionController.cs#L273-L285
+https://github.com/rahmatalhakam/enumerable-to-queryable-linq/blob/8c65c52875c9749169a1ec27effb9cdbd26962b7/Controllers/TransactionController.cs#L273-L285
 
 More Info: https://github.com/dotnet/efcore/issues/19129
 
@@ -97,7 +97,7 @@ You should check all interpolated string on Select call method on linq. Interpol
 3. varName1 + " " + varName2
 4. $"{varName.Trim()} - {varName.Trim()}")
 
-Code Example: https://github.com/rahmatalhakam/enumerable-to-queryable-linq/blob/a08c4fb757fb1104d2a62a87fcfc951d199dd836/Controllers/TransactionController.cs#L288-L303
+Code Example: https://github.com/rahmatalhakam/enumerable-to-queryable-linq/blob/8c65c52875c9749169a1ec27effb9cdbd26962b7/Controllers/TransactionController.cs#L288-L303
 
 More Info: https://github.com/dotnet/efcore/issues/16243
 
@@ -134,6 +134,6 @@ var result = a.Concat(b)
 
 Check any ToList() on select call method in Linq. Add ToList() method before GroupBy or Distinct call.
 
-Code Example: https://github.com/rahmatalhakam/enumerable-to-queryable-linq/blob/a08c4fb757fb1104d2a62a87fcfc951d199dd836/Controllers/TransactionController.cs#L291-L310
+Code Example: https://github.com/rahmatalhakam/enumerable-to-queryable-linq/blob/8c65c52875c9749169a1ec27effb9cdbd26962b7/Controllers/TransactionController.cs#L291-L310
 
 More Info: https://github.com/dotnet/efcore/issues/16243
